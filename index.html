@@ -617,7 +617,83 @@ text-align:left;
 .timeline-row::before{
 left:20px;
 }
+/* VIDEO CARD INSIDE TIMELINE */
 
+.video-timeline-card{
+max-width:520px;
+padding:32px;
+}
+
+/* VIDEO WRAPPER */
+
+.timeline-video-inside{
+position:relative;
+margin:28px 0;
+border-radius:24px;
+overflow:hidden;
+box-shadow:
+0 18px 50px rgba(0,0,0,.22);
+}
+
+/* VIDEO */
+
+.timeline-video-inside video{
+width:100%;
+height:280px;
+object-fit:cover;
+display:block;
+}
+
+/* AUDIO BUTTON */
+
+.video-audio-btn{
+position:absolute;
+bottom:16px;
+right:16px;
+
+width:48px;
+height:48px;
+
+border:none;
+border-radius:50%;
+
+background:
+rgba(255,255,255,.14);
+
+backdrop-filter:blur(10px);
+
+color:white;
+
+font-size:1rem;
+
+cursor:pointer;
+
+z-index:10;
+
+transition:.4s;
+}
+
+.video-audio-btn:hover{
+
+transform:scale(1.08);
+
+background:
+rgba(255,255,255,.24);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.timeline-video-inside video{
+height:220px;
+}
+
+.video-timeline-card{
+padding:24px;
+}
+
+}
 .timeline-image img,
 .timeline-image video{
 height:320px;
@@ -1444,38 +1520,60 @@ Wedding Timeline
 
 <div class="timeline-wrapper">
 
-  <!-- CHEKKAN & PENNUKANAL -->
+ <!-- CHEKKAN & PENNUKANAL -->
 
-  <div class="timeline-row left">
+<div class="timeline-row right">
 
-    <div class="timeline-image video-card">
+  <div class="timeline-content video-timeline-card">
 
-      <video autoplay muted loop playsinline>
-        <source src="chekkankanal.mp4" type="video/mp4">
+    <div class="timeline-date">
+      19 DECEMBER 2025 & 26 APRIL 2026
+    </div>
+
+    <h3>
+      Chekkan &
+      Pennukanal
+    </h3>
+
+    <!-- VIDEO INSIDE CARD -->
+
+    <div class="timeline-video-inside">
+
+      <video
+      id="proposalVideo"
+      autoplay
+      muted
+      loop
+      playsinline>
+
+        <source
+        src="chekkan-pennukanal.mp4"
+        type="video/mp4">
+
       </video>
 
-    </div>
+      <!-- AUDIO BUTTON -->
 
-    <div class="timeline-content">
+      <button
+      class="video-audio-btn"
+      id="videoAudioBtn">
 
-      <div class="timeline-date">
-        19 DECEMBER 2025 & 26 APRIL 2026
-      </div>
+        🔇
 
-      <h3>
-        Chekkan & Pennukanal
-      </h3>
-
-      <p>
-        The beginning of everything 
-        where two families met,
-        traditions blended,
-        and a beautiful journey officially began.
-      </p>
+      </button>
 
     </div>
+
+    <p>
+      The beginning of everything —
+      where two families met,
+      traditions blended,
+      and a beautiful journey officially began.
+    </p>
 
   </div>
+
+</div>
 
   <!-- HALDI -->
 
