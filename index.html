@@ -1,121 +1,1091 @@
-/* ═══ GALLERY - FANNED CARD SWIPER ═══ */
-#gallery { background: var(--bg2); overflow: hidden; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parvathy & Gazal Wedding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-.gallery-swiper-wrap {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  padding: 60px 0 80px;
-  cursor: grab;
-  user-select: none;
-}
-.gallery-swiper-wrap:active { cursor: grabbing; }
+    :root {
+      --bg:         #fdf9f5;
+      --bg2:        #f5ede3;
+      --ink:        #2c2420;
+      --mid:        #8a7060;
+      --muted:      #b5a090;
+      --line:       #d8c8b8;
+      --gold:       #c4974a;
+      --gold-light: #e8c882;
+      --gold-dark:  #9a6e2e;
+      --white:      #ffffff;
+      --cream:      #fdf6ee;
+    }
 
-.gallery-track {
-  display: flex;
-  gap: 24px;
-  padding: 40px 80px;
-  width: max-content;
-  transition: transform 0.1s linear;
-}
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+    }
 
-/* Each card */
-.g-card {
-  position: relative;
-  flex-shrink: 0;
-  width: 220px;
-  height: 300px;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.18);
-  border: 6px solid #fff;
-  cursor: pointer;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.35s ease;
-  background: #fff;
-}
+    /* ═══ SPLIT LAYOUT ═══ */
+    .page-container { display: flex; min-height: 100vh; width: 100%; }
 
-/* Alternating tilts like scattered polaroids */
-.g-card:nth-child(odd)  { transform: rotate(-4deg) translateY(10px); }
-.g-card:nth-child(even) { transform: rotate(3deg)  translateY(-10px); }
-.g-card:nth-child(3n)   { transform: rotate(-2deg) translateY(5px); }
-.g-card:nth-child(4n)   { transform: rotate(5deg)  translateY(15px); }
+    .photo-sidebar {
+      width: 40%; height: 100vh;
+      position: fixed; left: 0; top: 0;
+      background-image: url('photo.jpeg');
+      background-size: cover; background-position: center;
+      border-right: 1px solid var(--line); z-index: 10;
+    }
 
-.g-card:hover {
-  transform: rotate(0deg) translateY(-18px) scale(1.06) !important;
-  box-shadow: 0 28px 60px rgba(0,0,0,0.28);
-  z-index: 10;
-}
+    .content-main {
+      width: 60%; margin-left: 40%;
+      position: relative;
+      background-image: url('background.jpg');
+      background-size: cover; background-attachment: fixed; background-position: center;
+    }
 
-.g-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  pointer-events: none;
-  filter: saturate(0.92);
-  transition: filter 0.3s;
-}
-.g-card:hover img { filter: saturate(1.1); }
+    /* ═══ NAV ═══ */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: center; gap: 2.5rem;
+      padding: 18px 24px;
+      background: rgba(253,249,245,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    nav a {
+      font-size: 1rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--mid);
+      text-decoration: none; transition: color 0.25s;
+    }
+    nav a:hover { color: var(--gold); }
 
-/* Heart decoration (like in reference) */
-.g-heart {
-  position: absolute;
-  pointer-events: none;
-  color: #c4754a;
-  font-size: 2.4rem;
-  opacity: 0.55;
-  animation: floatHeart 4s ease-in-out infinite;
-  z-index: 0;
-}
-.g-heart:nth-child(1) { top: 10%; left: 8%; animation-delay: 0s; }
-.g-heart:nth-child(2) { top: 20%; right: 10%; animation-delay: 1.5s; font-size: 1.6rem; }
+    /* ═══ HERO ═══ */
+    #home {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 100px 24px 60px;
+      background: linear-gradient(160deg, #fdf9f5 0%, #f5ede3 100%);
+      position: relative; overflow: hidden;
+    }
+    #home::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(196,151,74,0.09) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(196,151,74,0.07) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-date-top { font-size: 1.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+    .hero-names { font-family: 'Great Vibes', cursive; font-weight: 300; font-size: clamp(3rem, 7.5vw, 6rem); line-height: 1; letter-spacing: 0.09em; color: var(--gold); }
+    .hero-ampersand { font-family: 'Great Vibes', cursive; font-size: clamp(1.8rem, 4.5vw, 3.2rem); color: var(--gold); display: block; margin: -8px 0 -4px; }
+    .hero-tag { font-size: 0.9rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-top: 22px; margin-bottom: 32px; }
+    .hero-divider { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 32px; }
+    .hero-floral { font-size: 1.8rem; margin-top: 40px; color: var(--gold-light); letter-spacing: 0.4em; }
 
-@keyframes floatHeart {
-  0%, 100% { transform: translateY(0) rotate(-10deg); }
-  50%       { transform: translateY(-14px) rotate(10deg); }
-}
+    /* Countdown */
+    #countdown { display: flex; gap: 18px; justify-content: center; margin-top: 40px; flex-wrap: wrap; }
+    #countdown div {
+      background: rgba(255,255,255,0.55); backdrop-filter: blur(8px);
+      border: 1px solid rgba(196,151,74,0.25); border-radius: 16px;
+      padding: 18px 20px; min-width: 95px; text-align: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+    }
+    #countdown span { display: block; font-size: 2rem; font-weight: 600; color: #c4974a; line-height: 1; }
+    #countdown small { display: block; margin-top: 8px; letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.7rem; color: #8a7060; }
 
-/* Scroll hint arrows */
-.gallery-arrows {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 8px;
-}
-.g-arrow {
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  border: 1px solid var(--line);
-  background: var(--white);
-  color: var(--mid);
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.2s;
-}
-.g-arrow:hover {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: #fff;
-  transform: scale(1.1);
-}
+    /* ═══ SECTION HELPERS ═══ */
+    .section-wrap { padding: 90px 24px; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+    .section-label { font-size: 0.9rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); text-align: center; margin-bottom: 10px; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2rem, 6vw, 3.2rem); text-align: center; letter-spacing: 0.04em; margin-bottom: 14px; color: var(--ink); }
+    .section-rule { width: 50px; height: 1px; background: var(--gold); margin: 0 auto 60px; }
 
-/* Scroll progress dots */
-.gallery-dots {
-  display: flex;
-  justify-content: center;
-  gap: 7px;
-  margin-top: 20px;
-}
-.g-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--line);
-  transition: background 0.3s, transform 0.3s;
-  cursor: pointer;
-}
-.g-dot.active {
-  background: var(--gold);
-  transform: scale(1.4);
-}
+    /* ═══ STORY ═══ */
+    #story { background: var(--white); }
+    .story-body { max-width: 620px; margin: 0 auto; text-align: center; font-size: 1.5rem; line-height: 2; color: var(--mid); }
+    .story-body p { margin-bottom: 18px; }
+    .story-highlight { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 2rem; color: var(--gold); margin-top: 28px; }
+
+    /* ═══ GALLERY - FANNED CARD SWIPER ═══ */
+    #gallery { background: var(--bg2); overflow: hidden; }
+    .gallery-swiper-wrap {
+      position: relative; width: 100%; overflow-x: auto; overflow-y: visible;
+      padding: 60px 0 80px; cursor: grab; user-select: none;
+      scrollbar-width: none;
+    }
+    .gallery-swiper-wrap::-webkit-scrollbar { display: none; }
+    .gallery-swiper-wrap:active { cursor: grabbing; }
+    .gallery-track { display: flex; gap: 24px; padding: 40px 80px; width: max-content; }
+    .g-card {
+      position: relative; flex-shrink: 0; width: 220px; height: 300px;
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+      border: 6px solid #fff; cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+      background: #fff;
+    }
+    .g-card:nth-child(odd)  { transform: rotate(-4deg) translateY(10px); }
+    .g-card:nth-child(even) { transform: rotate(3deg)  translateY(-10px); }
+    .g-card:nth-child(3n)   { transform: rotate(-2deg) translateY(5px); }
+    .g-card:nth-child(4n)   { transform: rotate(5deg)  translateY(15px); }
+    .g-card:hover { transform: rotate(0deg) translateY(-18px) scale(1.06) !important; box-shadow: 0 28px 60px rgba(0,0,0,0.28); z-index: 10; }
+    .g-card img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; filter: saturate(0.92); transition: filter 0.3s; }
+    .g-card:hover img { filter: saturate(1.1); }
+    .g-heart { position: absolute; pointer-events: none; color: #c4754a; font-size: 2.4rem; opacity: 0.55; animation: floatHeart 4s ease-in-out infinite; z-index: 0; }
+    .g-heart:nth-child(1) { top: 10%; left: 8%; animation-delay: 0s; }
+    .g-heart:nth-child(2) { top: 20%; right: 10%; animation-delay: 1.5s; font-size: 1.6rem; }
+    @keyframes floatHeart { 0%,100% { transform: translateY(0) rotate(-10deg); } 50% { transform: translateY(-14px) rotate(10deg); } }
+    .gallery-arrows { display: flex; justify-content: center; gap: 16px; margin-top: 8px; }
+    .g-arrow { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--white); color: var(--mid); font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.2s; }
+    .g-arrow:hover { background: var(--gold); border-color: var(--gold); color: #fff; transform: scale(1.1); }
+    .gallery-dots { display: flex; justify-content: center; gap: 7px; margin-top: 20px; }
+    .g-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--line); transition: background 0.3s, transform 0.3s; cursor: pointer; }
+    .g-dot.active { background: var(--gold); transform: scale(1.4); }
+
+    /* ═══════════════════════════════════════════
+       LUXURY EVENTS SECTION
+    ═══════════════════════════════════════════ */
+    #events {
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    /* Decorative background elements */
+    #events::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse at 10% 20%, rgba(196,151,74,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 80%, rgba(196,151,74,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(196,151,74,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Animated gold particles */
+    .events-particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .ep {
+      position: absolute;
+      width: 2px; height: 2px;
+      background: var(--gold-light);
+      border-radius: 50%;
+      animation: epFloat linear infinite;
+      opacity: 0;
+    }
+    @keyframes epFloat {
+      0%   { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.4; }
+      100% { transform: translateY(-10vh) translateX(var(--ex)) scale(1); opacity: 0; }
+    }
+
+    .events-header {
+      text-align: center;
+      padding: 80px 24px 60px;
+      position: relative; z-index: 2;
+    }
+    .events-header .section-label { color: var(--gold-light); opacity: 0.8; }
+    .events-header .section-title { color: var(--white); }
+    .events-header .section-rule { background: var(--gold); }
+
+    /* ── Vertical luxury timeline ── */
+    .lux-timeline {
+      position: relative;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px 100px;
+      z-index: 2;
+    }
+
+    /* Glowing central spine */
+    .lux-spine {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(196,151,74,0.3) 5%,
+        rgba(196,151,74,0.6) 20%,
+        var(--gold) 50%,
+        rgba(196,151,74,0.6) 80%,
+        rgba(196,151,74,0.3) 95%,
+        transparent 100%
+      );
+      z-index: 1;
+    }
+
+    /* Animated glow bead travelling down the spine */
+    .spine-bead {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold-light);
+      box-shadow: 0 0 12px 4px rgba(232,200,130,0.7);
+      animation: beadTravel 6s ease-in-out infinite;
+      z-index: 3;
+      top: 0;
+    }
+    @keyframes beadTravel {
+      0%   { top: 0%;   opacity: 0; }
+      5%   { opacity: 1; }
+      95%  { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    /* Each event row */
+    .lux-event {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr;
+      align-items: center;
+      margin-bottom: 72px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Left/right placement */
+    .lux-event.left  .lux-card  { grid-column: 1; }
+    .lux-event.left  .lux-node  { grid-column: 2; }
+    .lux-event.left  .lux-empty { grid-column: 3; }
+    .lux-event.right .lux-empty { grid-column: 1; }
+    .lux-event.right .lux-node  { grid-column: 2; }
+    .lux-event.right .lux-card  { grid-column: 3; }
+
+    /* Node (centre icon) */
+    .lux-node {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 6px;
+      position: relative; z-index: 4;
+    }
+    .lux-dot {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(196,151,74,0.15), rgba(196,151,74,0.05));
+      border: 1px solid rgba(196,151,74,0.5);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: 0 0 0 0 rgba(196,151,74,0);
+      backdrop-filter: blur(4px);
+    }
+    .lux-event:hover .lux-dot {
+      transform: scale(1.18);
+      border-color: var(--gold);
+      box-shadow:
+        0 0 0 6px rgba(196,151,74,0.15),
+        0 0 24px rgba(196,151,74,0.4);
+      background: linear-gradient(135deg, rgba(196,151,74,0.3), rgba(196,151,74,0.1));
+    }
+    .lux-dot-date {
+      font-size: 0.55rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(196,151,74,0.7);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* Horizontal connector lines */
+    .lux-event.left  .lux-node::before,
+    .lux-event.right .lux-node::before {
+      content: '';
+      position: absolute;
+      top: 50%; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(196,151,74,0.4));
+      transition: width 0.4s ease, opacity 0.4s ease;
+      width: 0;
+      opacity: 0;
+    }
+    .lux-event.left  .lux-node::before { right: 100%; left: auto; background: linear-gradient(to left, transparent, rgba(196,151,74,0.4)); }
+    .lux-event.right .lux-node::before { left: 100%; }
+    .lux-event.visible .lux-node::before { width: 40px; opacity: 1; }
+
+    /* The luxury card */
+    .lux-card {
+      background: linear-gradient(135deg,
+        rgba(255,255,255,0.06) 0%,
+        rgba(255,255,255,0.02) 100%
+      );
+      border: 1px solid rgba(196,151,74,0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      transition: all 0.45s cubic-bezier(0.25,1,0.5,1);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .lux-event.left  .lux-card { transform: translateX(-30px) translateY(10px); }
+    .lux-event.right .lux-card { transform: translateX(30px)  translateY(10px); }
+    .lux-event.visible .lux-card { opacity: 1; transform: translateX(0) translateY(0); }
+
+    /* Gold shimmer line at top of card */
+    .lux-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .lux-card:hover::before { opacity: 1; }
+
+    /* Hover glow on card */
+    .lux-card:hover {
+      border-color: rgba(196,151,74,0.5);
+      box-shadow:
+        0 0 40px rgba(196,151,74,0.12),
+        0 20px 60px rgba(0,0,0,0.4),
+        inset 0 0 20px rgba(196,151,74,0.04);
+      transform: translateY(-4px) scale(1.01);
+    }
+
+    /* Card inner */
+    .lux-card-inner { padding: 28px 30px 24px; }
+
+    /* Date chip */
+    .lux-date-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(196,151,74,0.3);
+      padding: 4px 12px;
+      border-radius: 30px;
+      margin-bottom: 14px;
+      background: rgba(196,151,74,0.06);
+    }
+    .lux-date-chip::before {
+      content: '';
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .lux-event-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.55rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .lux-time-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .lux-time-icon {
+      width: 14px; height: 14px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      flex-shrink: 0;
+      opacity: 0.8;
+    }
+    .lux-time-text {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .lux-venue-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .lux-venue-icon {
+      width: 14px; height: 14px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      flex-shrink: 0;
+      margin-top: 2px;
+      opacity: 0.8;
+    }
+    .lux-venue-text {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+    }
+
+    .lux-note {
+      font-size: 0.7rem;
+      color: var(--gold-light);
+      font-style: italic;
+      margin-top: 10px;
+      margin-bottom: 0;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .lux-note::before { content: '✦'; font-style: normal; font-size: 0.5rem; }
+
+    /* Card footer with direction button */
+    .lux-card-footer {
+      border-top: 1px solid rgba(196,151,74,0.12);
+      padding: 14px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Direction button */
+    .lux-dir-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border: 1px solid rgba(196,151,74,0.35);
+      border-radius: 2px;
+      background: rgba(196,151,74,0.06);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .lux-dir-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+      z-index: -1;
+    }
+    .lux-dir-btn:hover {
+      color: var(--ink);
+      border-color: var(--gold);
+    }
+    .lux-dir-btn:hover::after { transform: scaleX(1); }
+    .lux-dir-btn svg {
+      width: 12px; height: 12px;
+      stroke: currentColor; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* Event number badge */
+    .lux-event-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      color: rgba(196,151,74,0.4);
+      letter-spacing: 0.1em;
+    }
+
+    /* Scroll-reveal entry animations */
+    .lux-event { opacity: 0; }
+    .lux-event.visible { opacity: 1; }
+    .lux-event:nth-child(1) .lux-card { transition-delay: 0.05s; }
+    .lux-event:nth-child(2) .lux-card { transition-delay: 0.1s; }
+    .lux-event:nth-child(3) .lux-card { transition-delay: 0.15s; }
+    .lux-event:nth-child(4) .lux-card { transition-delay: 0.2s; }
+    .lux-event:nth-child(5) .lux-card { transition-delay: 0.25s; }
+    .lux-event:nth-child(6) .lux-card { transition-delay: 0.3s; }
+
+    /* ═══ Q&A ═══ */
+    #qa { background: var(--bg2); }
+    .qa-list { display: flex; flex-direction: column; max-width: 680px; margin: 0 auto; }
+    .qa-item { border-bottom: 1px solid var(--line); padding: 22px 0; }
+    .qa-q { font-size: 0.85rem; font-weight: 500; color: var(--ink); letter-spacing: 0.04em; margin-bottom: 8px; display: flex; align-items: center; }
+    .qa-a { font-size: 0.82rem; color: var(--mid); line-height: 1.75; }
+    .qa-caricature { width: 24px; height: 24px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; margin-right: 12px; flex-shrink: 0; display: inline-block; }
+
+    /* ═══ FOOTER ═══ */
+    footer { background: var(--ink); color: var(--muted); text-align: center; padding: 60px 24px; }
+    .footer-names { font-family: 'Great Vibes', cursive; font-size: 2.6rem; color: var(--gold-light); margin-bottom: 12px; }
+    .footer-date { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 36px; color: var(--muted); }
+    .rsvp-btn {
+      display: inline-block; padding: 14px 44px;
+      border: 1px solid var(--gold); color: var(--gold);
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      text-decoration: none; transition: background 0.3s, color 0.3s;
+    }
+    .rsvp-btn:hover { background: var(--gold); color: var(--ink); }
+    .footer-copy { margin-top: 40px; font-size: 0.65rem; opacity: 0.4; letter-spacing: 0.1em; }
+
+    /* Lightbox */
+    .lightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(18,14,12,0.96); backdrop-filter: blur(12px);
+      z-index: 999; align-items: center; justify-content: center; user-select: none;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-content-wrapper { position: relative; display: flex; align-items: center; justify-content: center; max-width: 90vw; max-height: 90vh; }
+    .lightbox img { max-width: 80vw; max-height: 80vh; border-radius: 4px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); z-index: 10; }
+    .lightbox-close { position: absolute; top: 30px; right: 30px; font-size: 2.5rem; color: #fff; cursor: pointer; line-height: 1; opacity: 0.7; transition: opacity 0.25s, transform 0.25s; z-index: 20; }
+    .lightbox-close:hover { opacity: 1; transform: scale(1.1); }
+    .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; font-size: 1.5rem; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.25s, color 0.25s, transform 0.25s; z-index: 20; }
+    .lightbox-nav:hover { background: var(--gold); color: var(--ink); transform: translateY(-50%) scale(1.1); }
+    .lightbox-nav.prev { left: -70px; }
+    .lightbox-nav.next { right: -70px; }
+    @media (max-width: 1024px) { .lightbox-nav { display: none; } }
+    #heart-container { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 5; }
+    .heart-pop { position: absolute; bottom: -40px; pointer-events: none; animation: floatUp 4s linear forwards; }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.7; }
+      90%  { opacity: 0.7; }
+      100% { transform: translateY(-105vh) translateX(var(--random-x)) rotate(var(--random-rotate)); opacity: 0; }
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 900px) {
+      .page-container { flex-direction: column; }
+      .photo-sidebar { width: 100%; height: 50vh; position: relative; border-right: none; border-bottom: 1px solid var(--line); }
+      .content-main { width: 100%; margin-left: 0; }
+    }
+    @media (max-width: 640px) {
+      nav { gap: 1.1rem; }
+      nav a { font-size: 0.58rem; }
+      /* Mobile events */
+      .lux-spine, .lux-bead-wrap { left: 24px; }
+      .lux-timeline { padding: 0 16px 60px; }
+      .lux-event {
+        grid-template-columns: 48px 1fr;
+        margin-bottom: 40px;
+      }
+      .lux-event.left  .lux-card,
+      .lux-event.right .lux-card  { grid-column: 2; grid-row: 1; }
+      .lux-event.left  .lux-node,
+      .lux-event.right .lux-node  { grid-column: 1; grid-row: 1; }
+      .lux-event.left  .lux-empty,
+      .lux-event.right .lux-empty { display: none; }
+      .lux-dot { width: 40px; height: 40px; font-size: 1.1rem; }
+      .lux-dot-date { display: none; }
+      .lux-card-inner { padding: 20px 18px 16px; }
+      .lux-card-footer { padding: 12px 18px; }
+      .lux-event-title { font-size: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <div class="photo-sidebar"></div>
+
+  <div class="content-main">
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#story">Our Story</a>
+      <a href="#gallery">Photos</a>
+      <a href="#events">Events</a>
+      <a href="#qa">Q & A</a>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <section id="home" style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 60px;background:linear-gradient(160deg,#fdf9f5 0%,#f5ede3 100%);position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background-image:radial-gradient(circle at 20% 30%,rgba(196,151,74,.09) 0%,transparent 50%),radial-gradient(circle at 80% 70%,rgba(196,151,74,.07) 0%,transparent 50%);pointer-events:none;"></div>
+      <div class="hero-date-top">12 · July · 2026</div>
+      <h1 class="hero-names">Parvathy<span class="hero-ampersand">&</span>Gazal</h1>
+      <div class="hero-tag">Wedding Day</div>
+      <div class="hero-divider"></div>
+      <div id="countdown">
+        <div><span id="days">00</span><small>Days</small></div>
+        <div><span id="hours">00</span><small>Hours</small></div>
+        <div><span id="minutes">00</span><small>Minutes</small></div>
+        <div><span id="seconds">00</span><small>Seconds</small></div>
+      </div>
+      <div class="hero-floral">✦ &nbsp; ✦ &nbsp; ✦</div>
+    </section>
+
+    <!-- ── STORY ── -->
+    <div id="story" class="section-wrap">
+      <div class="section-inner">
+        <div class="section-label">How it began</div>
+        <h2 class="section-title">Our Story</h2>
+        <div class="section-rule"></div>
+        <div class="story-body">
+          <p>We met 10 years ago in college — not as best friends, not even close friends… just two people who knew each other.</p>
+          <p>For 7 years, life kept us in the same place but on different paths. Then life did something unexpected — it took us miles apart.</p>
+          <p>And somewhere in that distance, we realized what we truly meant to each other.</p>
+          <p>For the past 4 years, distance has been constant… but so has love — growing stronger with every mile.</p>
+          <p class="story-highlight">From Long Distance to Long Term ❤️</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GALLERY ── -->
+    <div id="gallery" class="section-wrap">
+      <div class="section-inner">
+        <div class="section-label">Memories</div>
+        <h2 class="section-title">Photos</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div style="position:relative;">
+        <div class="g-heart">♥</div>
+        <div class="g-heart">🎈</div>
+        <div class="gallery-swiper-wrap" id="gallerySwiperWrap">
+          <div class="gallery-track" id="galleryTrack">
+            <div class="g-card" onclick="openLightbox('photo1.jpeg')"><img src="photo1.jpeg" alt="1" /></div>
+            <div class="g-card" onclick="openLightbox('photo2.jpeg')"><img src="photo2.jpeg" alt="2" /></div>
+            <div class="g-card" onclick="openLightbox('photo3.jpeg')"><img src="photo3.jpeg" alt="3" /></div>
+            <div class="g-card" onclick="openLightbox('photo4.jpeg')"><img src="photo4.jpeg" alt="4" /></div>
+            <div class="g-card" onclick="openLightbox('photo5.jpeg')"><img src="photo5.jpeg" alt="5" /></div>
+            <div class="g-card" onclick="openLightbox('photo6.jpeg')"><img src="photo6.jpeg" alt="6" /></div>
+            <div class="g-card" onclick="openLightbox('photo7.jpeg')"><img src="photo7.jpeg" alt="7" /></div>
+            <div class="g-card" onclick="openLightbox('photo8.jpeg')"><img src="photo8.jpeg" alt="8" /></div>
+            <div class="g-card" onclick="openLightbox('photo9.jpeg')"><img src="photo9.jpeg" alt="9" /></div>
+            <div class="g-card" onclick="openLightbox('photo10.jpeg')"><img src="photo10.jpeg" alt="10" /></div>
+            <div class="g-card" onclick="openLightbox('photo11.jpeg')"><img src="photo11.jpeg" alt="11" /></div>
+            <div class="g-card" onclick="openLightbox('photo12.jpeg')"><img src="photo12.jpeg" alt="12" /></div>
+          </div>
+        </div>
+        <div class="gallery-arrows">
+          <button class="g-arrow" id="gPrev">&#8592;</button>
+          <button class="g-arrow" id="gNext">&#8594;</button>
+        </div>
+        <div class="gallery-dots" id="galleryDots"></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         LUXURY EVENTS SECTION
+    ══════════════════════════════ -->
+    <div id="events">
+      <!-- Floating gold particles (injected by JS) -->
+      <div class="events-particles" id="eventsParticles"></div>
+
+      <div class="events-header">
+        <div class="section-label">Celebrations</div>
+        <h2 class="section-title">Events</h2>
+        <div class="section-rule"></div>
+      </div>
+
+      <div class="lux-timeline" id="luxTimeline">
+
+        <!-- Glowing spine -->
+        <div class="lux-spine"></div>
+        <div class="spine-bead"></div>
+
+        <!-- ① Haldi -->
+        <div class="lux-event left" data-index="1">
+          <div class="lux-card">
+            <div class="lux-card-inner">
+              <div class="lux-date-chip">5 July 2026</div>
+              <div class="lux-event-title">Haldi 💛</div>
+              <div class="lux-time-row">
+                <svg class="lux-time-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>
+                <span class="lux-time-text">3:00 PM – 6:00 PM</span>
+              </div>
+              <div class="lux-venue-row">
+                <svg class="lux-venue-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                <span class="lux-venue-text">Aluva, Kerala</span>
+              </div>
+            </div>
+            <div class="lux-card-footer">
+              <span class="lux-event-num">01 / 06</span>
+              <a class="lux-dir-btn" href="https://www.google.com/maps/dir/?api=1&destination=Aluva,Kerala" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                Get Directions
+              </a>
+            </div>
+          </div>
+          <div class="lux-node">
+            <div class="lux-dot">💛</div>
+            <div class="lux-dot-date">Jul 5</div>
+          </div>
+          <div class="lux-empty"></div>
+        </div>
+
+        <!-- ② Groom's Function -->
+        <div class="lux-event right" data-index="2">
+          <div class="lux-empty"></div>
+          <div class="lux-node">
+            <div class="lux-dot">🏠</div>
+            <div class="lux-dot-date">Jul 10</div>
+          </div>
+          <div class="lux-card">
+            <div class="lux-card-inner">
+              <div class="lux-date-chip">10 July 2026</div>
+              <div class="lux-event-title">Groom's Function 🏠</div>
+              <div class="lux-time-row">
+                <svg class="lux-time-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>
+                <span class="lux-time-text">6:00 PM – 8:00 PM</span>
+              </div>
+              <div class="lux-venue-row">
+                <svg class="lux-venue-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                <span class="lux-venue-text">Mudoor House, Edayappuram, Aluva</span>
+              </div>
+            </div>
+            <div class="lux-card-footer">
+              <span class="lux-event-num">02 / 06</span>
+              <a class="lux-dir-btn" href="https://www.google.com/maps/dir/?api=1&destination=Edayappuram,Aluva,Kerala" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                Get Directions
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ③ Mehendi -->
+        <div class="lux-event left" data-index="3">
+          <div class="lux-card">
+            <div class="lux-card-inner">
+              <div class="lux-date-chip">10 July 2026</div>
+              <div class="lux-event-title">Mehendi 🌿</div>
+              <div class="lux-time-row">
+                <svg class="lux-time-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>
+                <span class="lux-time-text">6:00 PM – 8:00 PM</span>
+              </div>
+              <div class="lux-venue-row">
+                <svg class="lux-venue-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                <span class="lux-venue-text">Mangattil House, Irumpanam</span>
+              </div>
+            </div>
+            <div class="lux-card-footer">
+              <span class="lux-event-num">03 / 06</span>
+              <a class="lux-dir-btn" href="https://www.google.com/maps/dir/?api=1&destination=Irumpanam,Kerala" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                Get Directions
+              </a>
+            </div>
+          </div>
+          <div class="lux-node">
+            <div class="lux-dot">🌿</div>
+            <div class="lux-dot-date">Jul 10</div>
+          </div>
+          <div class="lux-empty"></div>
+        </div>
+
+        <!-- ④ Thaalikettu -->
+        <div class="lux-event right" data-index="4">
+          <div class="lux-empty"></div>
+          <div class="lux-node">
+            <div class="lux-dot">⛪</div>
+            <div class="lux-dot-date">Jul 12</div>
+          </div>
+          <div class="lux-card">
+            <div class="lux-card-inner">
+              <div class="lux-date-chip">12 July 2026</div>
+              <div class="lux-event-title">Thaalikettu ⛪</div>
+              <div class="lux-time-row">
+                <svg class="lux-time-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>
+                <span class="lux-time-text">5:00 AM</span>
+              </div>
+              <div class="lux-venue-row">
+                <svg class="lux-venue-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                <span class="lux-venue-text">Guruvayoor Temple, Guruvayoor</span>
+              </div>
+              <div class="lux-note">Please arrive by 4:45 AM ⏰</div>
+            </div>
+            <div class="lux-card-footer">
+              <span class="lux-event-num">04 / 06</span>
+              <a class="lux-dir-btn" href="https://www.google.com/maps/dir/?api=1&destination=Guruvayoor+Temple,Guruvayoor,Kerala" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                Get Directions
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑤ Wedding Ceremony -->
+        <div class="lux-event left" data-index="5">
+          <div class="lux-card">
+            <div class="lux-card-inner">
+              <div class="lux-date-chip">12 July 2026</div>
+              <div class="lux-event-title">Wedding Ceremony 💍</div>
+              <div class="lux-time-row">
+                <svg class="lux-time-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>
+                <span class="lux-time-text">12:15 PM – 1:15 PM</span>
+              </div>
+              <div class="lux-venue-row">
+                <svg class="lux-venue-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                <span class="lux-venue-text">Souparnika Auditorium, Chottanikara</span>
+              </div>
+              <div class="lux-note">Lunch served thereafter 🍽️</div>
+            </div>
+            <div class="lux-card-footer">
+              <span class="lux-event-num">05 / 06</span>
+              <a class="lux-dir-btn" href="https://www.google.com/maps/dir/?api=1&destination=Souparnika+Auditorium,Chottanikara,Kerala" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                Get Directions
+              </a>
+            </div>
+          </div>
+          <div class="lux-node">
+            <div class="lux-dot">💍</div>
+            <div class="lux-dot-date">Jul 12</div>
+          </div>
+          <div class="lux-empty"></div>
+        </div>
+
+        <!-- ⑥ Reception -->
+        <div class="lux-event right" data-index="6">
+          <div class="lux-empty"></div>
+          <div class="lux-node">
+            <div class="lux-dot">🎉</div>
+            <div class="lux-dot-date">Jul 13</div>
+          </div>
+          <div class="lux-card">
+            <div class="lux-card-inner">
+              <div class="lux-date-chip">13 July 2026</div>
+              <div class="lux-event-title">Reception 🎉</div>
+              <div class="lux-time-row">
+                <svg class="lux-time-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>
+                <span class="lux-time-text">6:00 PM – 9:00 PM</span>
+              </div>
+              <div class="lux-venue-row">
+                <svg class="lux-venue-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                <span class="lux-venue-text">Convensia Convention Centre, Aluva</span>
+              </div>
+            </div>
+            <div class="lux-card-footer">
+              <span class="lux-event-num">06 / 06</span>
+              <a class="lux-dir-btn" href="https://www.google.com/maps/dir/?api=1&destination=Convensia+Convention+Centre,Aluva,Kerala" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                Get Directions
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /lux-timeline -->
+    </div><!-- /events -->
+
+    <!-- ── Q & A ── -->
+    <div id="qa" class="section-wrap" style="background:var(--bg2);">
+      <div class="section-inner">
+        <div class="section-label">Frequently Asked</div>
+        <h2 class="section-title">Q & A</h2>
+        <div class="section-rule"></div>
+        <div class="qa-list">
+          <div class="qa-item">
+            <div class="qa-q"><svg class="qa-caricature" viewBox="0 0 24 24"><path d="M6 3h12v4H6zm0 4h12l2 11H4L6 7zM9 18a3 3 0 0 0 6 0" fill="none"/></svg>What is the dress code?</div>
+            <div class="qa-a">We'd love to see you in traditional or ethnic attire ✨</div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q"><svg class="qa-caricature" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8zm0 11a3 3 0 1 1 3-3 3 3 0 0 1-3 3z" fill="none"/></svg>How do I reach the venue?</div>
+            <div class="qa-a">Each event has a "Get Directions" button that opens Google Maps for easy navigation 🗺️</div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q"><svg class="qa-caricature" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none"/><path d="M12 6v6l4 2" fill="none"/></svg>When should I arrive?</div>
+            <div class="qa-a">Please arrive at least 15–20 minutes before the event begins ⏳</div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q"><svg class="qa-caricature" viewBox="0 0 24 24"><path d="M18 3v10h-2V3M15 13h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4v-8zM6 3v5c0 2 1.5 3 3 3v8h2v-8c1.5 0 3-1 3-3V3M9 3v5M11 3v5" fill="none"/></svg>Will food be served?</div>
+            <div class="qa-a">Yes! Lunch will be served after the wedding ceremony and dinner at the reception 😋</div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q"><svg class="qa-caricature" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l1.5-2.5h7L17 6h4a2 2 0 0 1 2 2v11z" fill="none"/><circle cx="12" cy="13" r="4" fill="none"/></svg>Can I take photos?</div>
+            <div class="qa-a">Of course! Capture all the happy moments with us ❤️</div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q"><svg class="qa-caricature" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" fill="none"/><path d="M22 6l-10 7L2 6" fill="none"/></svg>How can I RSVP?</div>
+            <div class="qa-a">You can RSVP using the WhatsApp button below 📱</div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q"><svg class="qa-caricature" viewBox="0 0 24 24"><path d="M12 2L2 9h20L12 2zm-8 8v9h16v-9H4zm3 2h2v5H7v-5zm7 0h2v5h-2v-5z" fill="none"/></svg>Should I come for Thaalikettu at Guruvayoor?</div>
+            <div class="qa-a">Well… if you <em>really</em> want to wake up at 5:00 AM 😄 — we would absolutely love to have you there! But we totally understand… it's early, it's far, and sleep is important too 😴 So if you can't make it, no worries at all — your blessings mean everything to us 💛 That said… if you are planning to come, please try to reach by <strong>4:45 AM</strong> ⏰ (yes… we know 😅)</div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q"><svg class="qa-caricature" viewBox="0 0 24 24"><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1" fill="none"/><circle cx="12" cy="12" r="4" fill="none"/></svg>Are we invited to all the events?</div>
+            <div class="qa-a">We wish we could invite everyone to everything 😭💛 But due to some seating (and logistics 😅), there are a few limitations. Please check your invitation card — it will mention exactly which events you're invited to ✨ And no matter what, we're just super happy to celebrate with you 💍</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+      <div class="footer-names">Parvathy & Gazal</div>
+      <div class="footer-date">12 · July · 2026</div>
+      <a class="rsvp-btn" href="https://wa.me/91XXXXXXXXXX" target="_blank">RSVP via WhatsApp</a>
+      <div class="footer-copy">Made with love ❤️</div>
+    </footer>
+  </div><!-- /content-main -->
+</div><!-- /page-container -->
+
+<!-- ── LIGHTBOX ── -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <div id="heart-container"></div>
+  <div class="lightbox-content-wrapper">
+    <button class="lightbox-nav prev" onclick="prevPhoto()">&lsaquo;</button>
+    <img id="lightbox-img" src="" alt="" />
+    <button class="lightbox-nav next" onclick="nextPhoto()">&rsaquo;</button>
+  </div>
+</div>
+
+<script>
+  /* ═══ GALLERY ═══ */
+  const galleryImages = Array.from(document.querySelectorAll('.g-card img')).map(img => img.getAttribute('src'));
+  let currentPhotoIndex = 0;
+  let heartInterval = null;
+
+  function openLightbox(src) {
+    currentPhotoIndex = galleryImages.indexOf(src);
+    if (currentPhotoIndex === -1) currentPhotoIndex = 0;
+    updateLightboxImage();
+    document.getElementById('lightbox').classList.add('open');
+    startHearts();
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    stopHearts();
+  }
+  function updateLightboxImage() {
+    document.getElementById('lightbox-img').src = galleryImages[currentPhotoIndex];
+  }
+  function nextPhoto() { currentPhotoIndex = (currentPhotoIndex + 1) % galleryImages.length; updateLightboxImage(); }
+  function prevPhoto() { currentPhotoIndex = (currentPhotoIndex - 1 + galleryImages.length) % galleryImages.length; updateLightboxImage(); }
+
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this || e.target.id === 'heart-container') closeLightbox();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'ArrowRight') nextPhoto();
+    else if (e.key === 'ArrowLeft') prevPhoto();
+    else if (e.key === 'Escape') closeLightbox();
+  });
+
+  let touchStartX = 0;
+  document.getElementById('lightbox').addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  document.getElementById('lightbox').addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) diff > 0 ? nextPhoto() : prevPhoto();
+  }, { passive: true });
+
+  function startHearts() {
+    const container = document.getElementById('heart-container');
+    container.innerHTML = '';
+    heartInterval = setInterval(() => {
+      const heart = document.createElement('div');
+      heart.classList.add('heart-pop');
+      const size = Math.random() * 16 + 12;
+      const speed = Math.random() * 2 + 3.5;
+      const colors = ['#c4974a','#e8c882','#d8c8b8','#f0c294','#e28f8f'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      heart.innerHTML = `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="${color}"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+      heart.style.left = `${Math.random() * 100}%`;
+      heart.style.animationDuration = `${speed}s`;
+      heart.style.setProperty('--random-x', `${(Math.random() - 0.5) * 200}px`);
+      heart.style.setProperty('--random-rotate', `${(Math.random() - 0.5) * 180}deg`);
+      container.appendChild(heart);
+      setTimeout(() => heart.remove(), speed * 1000);
+    }, 250);
+  }
+  function stopHearts() {
+    clearInterval(heartInterval); heartInterval = null;
+    document.getElementById('heart-container').innerHTML = '';
+  }
+
+  /* ═══ GALLERY SWIPER ═══ */
+  const wrap      = document.getElementById('gallerySwiperWrap');
+  const dotsWrap  = document.getElementById('galleryDots');
+  const cards     = Array.from(document.querySelectorAll('.g-card'));
+  const cardStep  = 244;
+  let isDragging  = false, startX = 0, scrollLeft = 0, currentDot = 0;
+
+  cards.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'g-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => scrollToCard(i);
+    dotsWrap.appendChild(d);
+  });
+
+  function updateDots(index) {
+    currentDot = Math.max(0, Math.min(index, cards.length - 1));
+    document.querySelectorAll('.g-dot').forEach((d, i) => d.classList.toggle('active', i === currentDot));
+  }
+  function scrollToCard(index) {
+    wrap.scrollTo({ left: index * cardStep, behavior: 'smooth' });
+    updateDots(index);
+  }
+
+  document.getElementById('gNext').onclick = () => scrollToCard(currentDot + 1);
+  document.getElementById('gPrev').onclick = () => scrollToCard(currentDot - 1);
+
+  wrap.addEventListener('mousedown', e => { isDragging = true; startX = e.pageX - wrap.offsetLeft; scrollLeft = wrap.scrollLeft; wrap.style.cursor = 'grabbing'; });
+  wrap.addEventListener('mouseleave', () => { isDragging = false; wrap.style.cursor = 'grab'; });
+  wrap.addEventListener('mouseup',    () => { isDragging = false; wrap.style.cursor = 'grab'; snapToNearest(); });
+  wrap.addEventListener('mousemove',  e => { if (!isDragging) return; e.preventDefault(); wrap.scrollLeft = scrollLeft - (e.pageX - wrap.offsetLeft - startX); });
+
+  let tStartX = 0;
+  wrap.addEventListener('touchstart', e => { tStartX = e.touches[0].clientX; }, { passive: true });
+  wrap.addEventListener('touchend',   e => {
+    const diff = tStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) diff > 0 ? scrollToCard(currentDot + 1) : scrollToCard(currentDot - 1);
+  }, { passive: true });
+
+  function snapToNearest() { scrollToCard(Math.round(wrap.scrollLeft / cardStep)); }
+  wrap.addEventListener('scroll', () => updateDots(Math.round(wrap.scrollLeft / cardStep)), { passive: true });
+
+  /* ═══ EVENTS — GOLD PARTICLES ═══ */
+  const particleContainer = document.getElementById('eventsParticles');
+  for (let i = 0; i < 28; i++) {
+    const p = document.createElement('div');
+    p.className = 'ep';
+    const size = Math.random() * 3 + 1;
+    p.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random() * 100}%;
+      animation-duration:${Math.random() * 12 + 8}s;
+      animation-delay:${Math.random() * 10}s;
+      --ex:${(Math.random() - 0.5) * 80}px;
+      opacity:0;
+    `;
+    particleContainer.appendChild(p);
+  }
+
+  /* ═══ EVENTS — SCROLL REVEAL ═══ */
+  const luxIO = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 140);
+        luxIO.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.lux-event').forEach(el => luxIO.observe(el));
+
+  /* ═══ COUNTDOWN ═══ */
+  const weddingDate = new Date("July 12, 2026 05:00:00").getTime();
+  const countdownTimer = setInterval(() => {
+    const distance = weddingDate - new Date().getTime();
+    if (distance < 0) {
+      clearInterval(countdownTimer);
+      document.getElementById("countdown").innerHTML = "<h2 style='color:var(--gold);font-family:Great Vibes,cursive;font-size:2rem;'>We're Married ❤️</h2>";
+      return;
+    }
+    document.getElementById("days").textContent    = Math.floor(distance / 86400000);
+    document.getElementById("hours").textContent   = Math.floor((distance % 86400000) / 3600000);
+    document.getElementById("minutes").textContent = Math.floor((distance % 3600000) / 60000);
+    document.getElementById("seconds").textContent = Math.floor((distance % 60000) / 1000);
+  }, 1000);
+</script>
+</body>
+</html>
