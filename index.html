@@ -98,7 +98,7 @@ overflow:hidden;
 content:'';
 position:absolute;
 inset:0;
-background:url('Photo.JPG') center/cover;
+background:url('photo.jpeg') center/cover;
 animation:zoomHero 18s ease-in-out infinite alternate;
 transform:scale(1.05);
 }
@@ -378,8 +378,6 @@ position:relative;
 overflow:hidden;
 }
 
-/* TIMELINE WRAPPER */
-
 .timeline-wrapper{
 position:relative;
 max-width:1200px;
@@ -388,8 +386,6 @@ display:flex;
 flex-direction:column;
 gap:90px;
 }
-
-/* CENTER LINE */
 
 .timeline-wrapper::before{
 content:'';
@@ -402,209 +398,111 @@ height:100%;
 background:rgba(196,151,74,.35);
 }
 
-/* ROW */
-
-/* TIMELINE ROW */
-
 .timeline-row{
-position:relative;
-width:100%;
-
 display:grid;
 grid-template-columns:1fr 1fr;
-
+gap:70px;
 align-items:center;
-
-margin:40px 0;
+position:relative;
 }
 
-/* LEFT SIDE */
+.timeline-row.left .timeline-image{
+order:1;
+}
 
 .timeline-row.left .timeline-content{
+order:2;
+}
 
-justify-self:end;
+.timeline-row.right .timeline-image{
+order:2;
+}
 
-margin-right:70px;
-
+.timeline-row.right .timeline-content{
+order:1;
 text-align:right;
 }
 
-/* RIGHT SIDE */
-
-.timeline-row.right .timeline-content{
-
-justify-self:start;
-
-margin-left:70px;
-
-text-align:left;
-}
-
-/* CENTER DOT */
-
 .timeline-row::before{
-
 content:'';
-
 position:absolute;
-
 left:50%;
 top:50%;
-
 transform:translate(-50%,-50%);
-
-width:14px;
-height:14px;
-
+width:18px;
+height:18px;
 border-radius:50%;
-
 background:#c4974a;
-
-box-shadow:
-0 0 0 8px rgba(196,151,74,.12);
-
+box-shadow:0 0 0 10px rgba(196,151,74,.15);
 z-index:5;
 }
 
-/* CARD */
+.timeline-image{
+position:relative;
+z-index:2;
+}
+
+.timeline-image img,
+.timeline-image video{
+width:100%;
+height:440px;
+object-fit:cover;
+border-radius:34px;
+border:6px solid rgba(255,255,255,.75);
+box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.video-card{
+overflow:hidden;
+border-radius:34px;
+}
 
 .timeline-content{
-
-width:100%;
-max-width:380px;
-
-padding:34px;
-
-border-radius:28px;
-
-background:
-rgba(255,255,255,.05);
-
-border:
-1px solid rgba(196,151,74,.18);
-
+background:rgba(255,255,255,.05);
 backdrop-filter:blur(12px);
+border:1px solid rgba(196,151,74,.2);
+padding:55px;
+border-radius:34px;
+position:relative;
+z-index:2;
 }
-
-/* MOBILE */
-
-@media(max-width:950px){
-
-.timeline-row{
-
-grid-template-columns:1fr;
-
-padding-left:50px;
-}
-
-.timeline-row.left .timeline-content,
-.timeline-row.right .timeline-content{
-
-justify-self:start;
-
-margin:0;
-
-text-align:left;
-}
-
-.timeline-row::before{
-
-left:20px;
-}
-
-}
-/* HOVER */
-
-.timeline-content:hover{
-transform:translateY(-6px);
-}
-
-/* TEXT ALIGNMENT */
-
-.timeline-row.left .timeline-content{
-text-align:right;
-margin-right:80px;
-}
-
-.timeline-row.right .timeline-content{
-text-align:left;
-margin-left:80px;
-}
-
-/* DATE */
 
 .timeline-date{
-
-letter-spacing:.3em;
-
+letter-spacing:.35em;
 text-transform:uppercase;
-
-font-size:.65rem;
-
+font-size:.72rem;
 color:#e8c882;
-
-margin-bottom:16px;
+margin-bottom:20px;
 }
-
-/* TITLE */
 
 .timeline-content h3{
-
 font-family:'Cormorant Garamond',serif;
-
-font-size:2.4rem;
-
+font-size:3.2rem;
+margin-bottom:20px;
 font-weight:400;
-
-margin-bottom:16px;
-
-color:white;
 }
-
-/* DESCRIPTION */
 
 .timeline-content p{
-
-line-height:1.8;
-
-font-size:.92rem;
-
+line-height:2;
 color:rgba(255,255,255,.72);
-
-margin-bottom:26px;
+margin-bottom:35px;
 }
 
-/* BUTTON */
-
 .direction-btn{
-
-display:inline-flex;
-align-items:center;
-justify-content:center;
-
-padding:13px 24px;
-
+display:inline-block;
+padding:16px 34px;
 border-radius:999px;
-
 background:#c4974a;
-
 color:white;
-
 text-decoration:none;
-
-font-size:.62rem;
-
-letter-spacing:.16em;
-
+letter-spacing:.18em;
 text-transform:uppercase;
-
+font-size:.72rem;
 transition:.4s;
 }
 
 .direction-btn:hover{
-
-transform:translateY(-3px);
-
+transform:translateY(-4px);
 background:#d6ab61;
 }
 
@@ -617,138 +515,11 @@ left:20px;
 }
 
 .timeline-row{
-justify-content:flex-start !important;
-padding-left:55px;
-}
-
-.timeline-row::before{
-left:20px;
-}
-
-.timeline-content{
-width:100%;
-margin:0 !important;
-text-align:left !important;
-}
-
-}
-/* SPECIAL VIDEO ROW */
-
-.special-video-row{
-position:relative;
-
 display:grid;
-
 grid-template-columns:1fr 1fr;
-
+gap:45px;
 align-items:center;
-
-gap:55px;
-
-width:100%;
-}
-
-/* VIDEO SIDE */
-
-.special-video-side{
-display:flex;
-justify-content:flex-end;
-}
-
-/* VIDEO */
-
-.timeline-video-inside{
-width:100%;
-max-width:620px;
-
-border-radius:28px;
-overflow:hidden;
-
-box-shadow:
-0 20px 60px rgba(0,0,0,.25);
-}
-
-.timeline-video-inside video{
-width:100%;
-height:360px;
-object-fit:cover;
-display:block;
-}
-
-/* INFO CARD */
-
-.special-info-card{
-
-width:100%;
-max-width:360px;
-
-min-height:360px;
-
-display:flex;
-flex-direction:column;
-justify-content:center;
-
-margin-left:40px;
-}
-
-/* MOBILE */
-
-@media(max-width:950px){
-
-.special-video-row{
-
-grid-template-columns:1fr;
-
-gap:28px;
-}
-
-.special-video-side{
-justify-content:flex-start;
-}
-
-.timeline-video-inside{
-max-width:100%;
-}
-
-.timeline-video-inside video{
-height:240px;
-}
-
-.special-info-card{
-
-max-width:100%;
-
-margin-left:0;
-
-min-height:auto;
-}
-
-}
-/* MOBILE */
-
-@media(max-width:950px){
-
-.timeline-row.left .timeline-content,
-.timeline-row.right .timeline-content{
-
-margin:auto;
-text-align:left;
-
-}
-
-}
-/* MOBILE */
-
-@media(max-width:950px){
-
-.timeline-wrapper::before{
-left:20px;
-}
-
-.timeline-row{
-grid-template-columns:1fr;
-padding-left:60px;
-gap:30px;
+position:relative;
 }
 
 .timeline-row.left .timeline-image,
@@ -762,96 +533,115 @@ text-align:left;
 .timeline-row::before{
 left:20px;
 }
-/* VIDEO CARD INSIDE TIMELINE */
 
-.video-timeline-card{
-max-width:520px;
-padding:32px;
-}
-
-/* VIDEO WRAPPER */
-
-.timeline-video-inside{
-position:relative;
-margin:28px 0;
-border-radius:24px;
-overflow:hidden;
-box-shadow:
-0 18px 50px rgba(0,0,0,.22);
-}
-
-/* VIDEO */
-
-.timeline-video-inside video{
+.timeline-image img,
+.timeline-image video{
 width:100%;
-height:280px;
+height:320px;   /* smaller image */
 object-fit:cover;
-display:block;
+
+border-radius:26px;
+
+border:5px solid rgba(255,255,255,.75);
+
+box-shadow:
+0 15px 40px rgba(0,0,0,.18);
 }
 
-/* AUDIO BUTTON */
-
-.video-audio-btn{
-position:absolute;
-bottom:16px;
-right:16px;
-
-width:48px;
-height:48px;
-
-border:none;
-border-radius:50%;
+.timeline-content{
 
 background:
-rgba(255,255,255,.14);
+rgba(255,255,255,.05);
 
-backdrop-filter:blur(10px);
+backdrop-filter:blur(12px);
+
+border:
+1px solid rgba(196,151,74,.18);
+
+padding:36px;   /* smaller padding */
+
+border-radius:26px;
+
+max-width:480px;   /* smaller width */
+
+position:relative;
+z-index:2;
+}
+
+.timeline-date{
+
+letter-spacing:.28em;
+
+text-transform:uppercase;
+
+font-size:.68rem;
+
+color:#e8c882;
+
+margin-bottom:14px;
+}
+.timeline-content h3{
+
+font-family:'Cormorant Garamond',serif;
+
+font-size:2.4rem;   /* smaller title */
+
+margin-bottom:16px;
+
+font-weight:400;
+}
+.timeline-content p{
+
+line-height:1.8;
+
+font-size:.95rem;
+
+color:rgba(255,255,255,.72);
+
+margin-bottom:28px;
+}
+.direction-btn{
+
+display:inline-block;
+
+padding:14px 28px;
+
+border-radius:999px;
+
+background:#c4974a;
 
 color:white;
 
-font-size:1rem;
+text-decoration:none;
 
-cursor:pointer;
+letter-spacing:.14em;
 
-z-index:10;
+text-transform:uppercase;
+
+font-size:.65rem;
 
 transition:.4s;
 }
 
-.video-audio-btn:hover{
-
-transform:scale(1.08);
-
-background:
-rgba(255,255,255,.24);
-}
-
 /* MOBILE */
 
-@media(max-width:768px){
+@media(max-width:950px){
 
-.timeline-video-inside video{
-height:220px;
-}
-
-.video-timeline-card{
-padding:24px;
-}
-
-}
 .timeline-image img,
 .timeline-image video{
-height:320px;
+height:260px;
 }
 
 .timeline-content{
-padding:35px;
+padding:28px;
+max-width:100%;
 }
 
 .timeline-content h3{
-font-size:2.3rem;
+font-size:2rem;
 }
 
+}
 }
 
 /* LUXURY GALLERY */
@@ -1665,75 +1455,47 @@ Wedding Timeline
 
 <div class="timeline-wrapper">
 
- <!-- CHEKKAN & PENNUKANAL -->
+  <!-- CHEKKAN & PENNUKANAL -->
 
-<div class="timeline-row special-video-row">
+  <div class="timeline-row left">
 
-  <!-- VIDEO LEFT -->
+    <div class="timeline-image video-card">
 
-  <div class="special-video-side">
-
-    <div class="timeline-video-inside">
-
-      <video
-      id="proposalVideo"
-      autoplay
-      muted
-      loop
-      playsinline>
-
-        <source
-        src="chekkankanal.mp4"
-        type="video/mp4">
-
+      <video autoplay muted loop playsinline>
+        <source src="chekkankanal.mp4" type="video/mp4">
       </video>
 
-      <!-- AUDIO BUTTON -->
+    </div>
 
-      <button
-      class="video-audio-btn"
-      id="videoAudioBtn">
+    <div class="timeline-content">
 
-        🔇
+      <div class="timeline-date">
+        19 DECEMBER 2025 & 26 APRIL 2026
+      </div>
 
-      </button>
+      <h3>
+        Chekkan & Pennukanal
+      </h3>
+
+      <p>
+        The beginning of everything —
+        where two families met,
+        traditions blended,
+        and a beautiful journey officially began.
+      </p>
 
     </div>
 
   </div>
-
-  <!-- CONTENT RIGHT -->
-
-  <div class="timeline-content special-info-card">
-
-    <div class="timeline-date">
-      19 DECEMBER 2025 & 26 APRIL 2026
-    </div>
-
-    <h3>
-      Chekkan &
-      Pennukanal
-    </h3>
-
-    <p>
-      The beginning of everything —
-      where two families met,
-      traditions blended,
-      and a beautiful journey officially began.
-    </p>
-
-  </div>
-
-</div>
 
   <!-- HALDI -->
 
   <div class="timeline-row right">
-  <!--
-    <div class="timeline-image"> 
+
+    <div class="timeline-image">
       <img src="haldi.png" alt="">
     </div>
-   -->
+
     <div class="timeline-content">
 
       <div class="timeline-date">
@@ -1759,13 +1521,13 @@ Wedding Timeline
   </div>
 
   <!-- MEHENDI -->
-  
-  <div class="timeline-row right">
-    <!--
+
+  <div class="timeline-row left">
+
     <div class="timeline-image">
       <img src="mehendi.jpg" alt="">
     </div>
-    -->
+
     <div class="timeline-content">
 
       <div class="timeline-date">
@@ -1792,12 +1554,12 @@ Wedding Timeline
 
   <!-- THAALIKETTU -->
 
-  <div class="timeline-row left">
-  <!--
+  <div class="timeline-row right">
+
     <div class="timeline-image">
       <img src="thaalikettu.jpg" alt="">
     </div>
-   -->
+
     <div class="timeline-content">
 
       <div class="timeline-date">
@@ -1824,12 +1586,12 @@ Wedding Timeline
 
   <!-- KALYAANAM -->
 
-  <div class="timeline-row right">
-  <!--
+  <div class="timeline-row left">
+
     <div class="timeline-image">
       <img src="kalyanam.jpg" alt="">
     </div>
-   -->
+
     <div class="timeline-content">
 
       <div class="timeline-date">
@@ -1857,12 +1619,12 @@ Wedding Timeline
 
   <!-- RECEPTION -->
 
-  <div class="timeline-row left">
-  <!--
+  <div class="timeline-row right">
+
     <div class="timeline-image">
       <img src="reception.jpg" alt="">
     </div>
-  -->
+
     <div class="timeline-content">
 
       <div class="timeline-date">
