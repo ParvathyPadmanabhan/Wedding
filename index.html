@@ -643,7 +643,62 @@ font-size:2rem;
 
 }
 }
+.coming-soon-card {
+  background: #f8f5f1;
+  border: 2px dashed #c8b6a6;
+  border-radius: 20px;
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+}
 
+.coming-soon-content h3 {
+  font-size: 28px;
+  margin-bottom: 12px;
+  color: #8b5e3c;
+}
+
+.coming-soon-content p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.photo-links {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.upload-btn,
+.view-btn {
+  padding: 12px 22px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.upload-btn {
+  background: #8b5e3c;
+  color: white;
+}
+
+.view-btn {
+  background: transparent;
+  border: 2px solid #8b5e3c;
+  color: #8b5e3c;
+}
+
+.upload-btn:hover,
+.view-btn:hover {
+  transform: translateY(-2px);
+}
 /* LUXURY GALLERY */
 
 .luxury-gallery-section{
@@ -1492,9 +1547,32 @@ Wedding Timeline
 
   <div class="timeline-row right">
 
-    <div class="timeline-image">
-      <img src="haldi.png" alt="">
+    <div class="event-image coming-soon-card">
+  <div class="coming-soon-content">
+    <h3>📸 Coming Soon</h3>
+    <p>
+      Photos and memories from this event will be uploaded here.
+    </p>
+
+    <div class="photo-links">
+      <a 
+        href="YOUR_GOOGLE_DRIVE_LINK" 
+        target="_blank" 
+        class="upload-btn"
+      >
+        Upload Photos
+      </a>
+
+      <a 
+        href="YOUR_GOOGLE_DRIVE_LINK" 
+        target="_blank" 
+        class="view-btn"
+      >
+        View Gallery
+      </a>
     </div>
+  </div>
+</div>
 
     <div class="timeline-content">
 
