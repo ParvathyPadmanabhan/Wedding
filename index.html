@@ -578,7 +578,132 @@ text-align:left !important;
 }
 
 }
+/* SPECIAL ROW */
 
+.special-video-row{
+
+display:grid;
+
+grid-template-columns:1.2fr .8fr;
+
+gap:40px;
+
+align-items:center;
+
+position:relative;
+}
+
+/* VIDEO SIDE */
+
+.special-video-side{
+position:relative;
+}
+
+/* VIDEO WRAPPER */
+
+.timeline-video-inside{
+
+position:relative;
+
+border-radius:28px;
+
+overflow:hidden;
+
+box-shadow:
+0 20px 60px rgba(0,0,0,.25);
+}
+
+/* VIDEO */
+
+.timeline-video-inside video{
+
+width:100%;
+
+height:420px;
+
+object-fit:cover;
+
+display:block;
+}
+
+/* INFO CARD */
+
+.special-info-card{
+
+max-width:420px;
+
+min-height:420px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+}
+
+/* AUDIO BUTTON */
+
+.video-audio-btn{
+
+position:absolute;
+
+bottom:18px;
+right:18px;
+
+width:50px;
+height:50px;
+
+border:none;
+
+border-radius:50%;
+
+background:
+rgba(255,255,255,.14);
+
+backdrop-filter:blur(10px);
+
+color:white;
+
+font-size:1rem;
+
+cursor:pointer;
+
+transition:.4s;
+
+z-index:5;
+}
+
+.video-audio-btn:hover{
+
+transform:scale(1.08);
+
+background:
+rgba(255,255,255,.24);
+}
+
+/* MOBILE */
+
+@media(max-width:950px){
+
+.special-video-row{
+
+grid-template-columns:1fr;
+
+gap:28px;
+}
+
+.timeline-video-inside video{
+height:260px;
+}
+
+.special-info-card{
+
+min-height:auto;
+
+max-width:100%;
+}
+
+}
 /* MOBILE */
 
 @media(max-width:950px){
@@ -1522,20 +1647,11 @@ Wedding Timeline
 
  <!-- CHEKKAN & PENNUKANAL -->
 
-<div class="timeline-row right">
+<div class="timeline-row special-video-row">
 
-  <div class="timeline-content video-timeline-card">
+  <!-- VIDEO LEFT -->
 
-    <div class="timeline-date">
-      19 DECEMBER 2025 & 26 APRIL 2026
-    </div>
-
-    <h3>
-      Chekkan &
-      Pennukanal
-    </h3>
-
-    <!-- VIDEO INSIDE CARD -->
+  <div class="special-video-side">
 
     <div class="timeline-video-inside">
 
@@ -1547,7 +1663,7 @@ Wedding Timeline
       playsinline>
 
         <source
-        src="chekkankanal.mp4"
+        src="chekkan-pennukanal.mp4"
         type="video/mp4">
 
       </video>
@@ -1563,6 +1679,21 @@ Wedding Timeline
       </button>
 
     </div>
+
+  </div>
+
+  <!-- CONTENT RIGHT -->
+
+  <div class="timeline-content special-info-card">
+
+    <div class="timeline-date">
+      19 DECEMBER 2025 & 26 APRIL 2026
+    </div>
+
+    <h3>
+      Chekkan &
+      Pennukanal
+    </h3>
 
     <p>
       The beginning of everything —
