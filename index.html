@@ -505,7 +505,41 @@ transition:.4s;
 transform:translateY(-4px);
 background:#d6ab61;
 }
+/* LEFT */
 
+.timeline-row.left{
+justify-content:flex-start;
+}
+
+.timeline-row.left .timeline-content{
+margin-right:auto;
+text-align:right;
+}
+
+/* RIGHT */
+
+.timeline-row.right{
+justify-content:flex-end;
+}
+
+.timeline-row.right .timeline-content{
+margin-left:auto;
+text-align:left;
+}
+
+/* MOBILE */
+
+@media(max-width:950px){
+
+.timeline-row.left .timeline-content,
+.timeline-row.right .timeline-content{
+
+margin:auto;
+text-align:left;
+
+}
+
+}
 /* MOBILE */
 
 @media(max-width:950px){
@@ -1424,14 +1458,14 @@ Wedding Timeline
   </div>
 
   <!-- MEHENDI -->
-
+  
   <div class="timeline-row right">
     <!--
     <div class="timeline-image">
       <img src="mehendi.jpg" alt="">
     </div>
     -->
-    <div class="timeline-content right">
+    <div class="timeline-content">
 
       <div class="timeline-date">
         10 JULY 2026
@@ -1457,7 +1491,7 @@ Wedding Timeline
 
   <!-- THAALIKETTU -->
 
-  <div class="timeline-row right">
+  <div class="timeline-row left">
   <!--
     <div class="timeline-image">
       <img src="thaalikettu.jpg" alt="">
@@ -1489,13 +1523,13 @@ Wedding Timeline
 
   <!-- KALYAANAM -->
 
-  <div class="timeline-row left">
+  <div class="timeline-row right">
   <!--
     <div class="timeline-image">
       <img src="kalyanam.jpg" alt="">
     </div>
    -->
-    <div class="timeline-content right">
+    <div class="timeline-content">
 
       <div class="timeline-date">
         12 JULY 2026
@@ -1522,7 +1556,7 @@ Wedding Timeline
 
   <!-- RECEPTION -->
 
-  <div class="timeline-row right">
+  <div class="timeline-row left">
   <!--
     <div class="timeline-image">
       <img src="reception.jpg" alt="">
